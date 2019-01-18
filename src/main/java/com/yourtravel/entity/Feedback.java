@@ -23,7 +23,7 @@ public class Feedback {
 
     Boolean valid;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Showplace.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "showplace_id", nullable = false)
     Showplace showplace;
 

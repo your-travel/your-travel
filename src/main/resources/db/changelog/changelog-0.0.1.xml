@@ -6,17 +6,213 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-        <changeSet id="changelog-0.0.1-1" author="pronin-av">
-            <createTable tableName="COUNTRY">
-                <column name="id" type="number(19)"/>
-                <column name="name" type="varchar(100)"/>
-            </createTable>
-        </changeSet>
+    <changeSet id="changelog-0.0.1-1" author="pronin-av">
+        <createTable tableName="COUNTRY" remarks="Спровочник стран">
+            <column name="id" type="number(19)" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
 
     <changeSet id="changelog-0.0.1-2" author="pronin-av">
+        <createTable tableName="CITY" remarks="Справочник городов">
+            <column name="id" type="number(19)" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="country_id" type="number(19)">
+                <constraints foreignKeyName="city_on_country_id_fk"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="changelog-0.0.1-3" author="pronin-av">
+        <createTable tableName="USER" remarks="Список пользователей">
+            <column name="id" type="number(19)" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="login" type="varchar(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="varchar(500)">
+                <constraints nullable="false" />
+            </column>
+            <column name="first_name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="second_name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="enable" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="warn" type="number(2)" value="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="avatar" type="blob"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="changelog-0.0.1-4" author="pronin-av">
+        <createTable tableName="travel_plan" remarks="Список планов путешествий">
+            <column name="id" type="number(19)" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="adult_count" type="number(2)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="child_count" type="number(2)"/>
+
+            <column name="start_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="city_id" type="number(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="number(19)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!--TODO: table role + table user_role-->
+
+    <changeSet id="changelog-0.0.1-5" author="pronin-av">
+        <createTable tableName="role" remarks="Справочник ролей">
+            <column name="id" type="number(19)" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="alias" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="changelog-0.0.1-6" author="pronin-av">
+        <createTable tableName="user_role" remarks="Сводная таблица пользователей и ролей">
+            <column name="id" type="number(19)" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="number(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id" type="number(19)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet id="changelog-0.0.1-7" author="pronin-av">
+        <createTable tableName="travel_day" remarks="Список дней путешествий">
+            <column name="id" type="number(19)" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="travel_plan_id" type="number(19)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="changelog-0.0.1-8" author="pronin-av">
+        <createTable tableName="showplace" remarks="Справочник достопримечательностей">
+            <column name="id" type="number(19)" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="work_start" type="time">
+                <constraints nullable="false"/>
+            </column>
+            <column name="work_end" type="time">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rating" type="number(3,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(1000)"/>
+
+            <column name="full_description" type="clob"/>
+
+            <column name="audioguide" type="blob"/>
+
+            <column name="city_id" type="number(19)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="changelog-0.0.1-9" author="pronin-av">
+        <createTable tableName="event" remarks="Список мероприятий">
+            <column name="id" type="number(19)" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="showplace_id" type="number(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="travel_day_id" type="number(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="event_type" type="varchar(200)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="changelog-0.0.1-10" author="pronin-av">
+        <createTable tableName="feedback" remarks="Список отзывов">
+            <column name="id" type="number(19)" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="text" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="mark" type="number(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="valid" type="boolean" value="1">
+                <constraints nullable="false"/>
+            </column>
+            <column name="showplace_id" type="number(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="number(19)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="test-1" author="aa">
         <insert tableName="country">
-            <column name="id" value="1"/>
+            <column name="name" value="Россия"/>
+        </insert>
+        <insert tableName="city">
             <column name="name" value="Воронеж"/>
+            <column name="country_id" value="1"/>
         </insert>
     </changeSet>
+
 </databaseChangeLog>
