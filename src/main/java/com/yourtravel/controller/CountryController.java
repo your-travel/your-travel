@@ -28,7 +28,7 @@ public class CountryController {
      * @return объект {@link Country} или null
      */
     @GetMapping(value = "/country/{countryId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Country index(@PathVariable Long countryId){
+    public Country findById(@PathVariable Long countryId){
         return countryRepository.findById(countryId).orElse(null);
     }
 

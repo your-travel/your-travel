@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "SHOWPLACE")
@@ -37,6 +38,9 @@ public class Showplace {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "city_id", nullable = false)
     City city;
+
+    @OneToMany(mappedBy = "showplace", fetch = FetchType.EAGER)
+    private Set<Feedback> feedbacks;
 
 
 }
