@@ -1,6 +1,9 @@
 package com.yourtravel.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -9,37 +12,40 @@ import java.util.Set;
 @Entity
 @Table(name = "SHOWPLACE")
 @Data
+@ToString(exclude = {"city", "feedbacks"})
+@EqualsAndHashCode(exclude = {"city", "feedbacks"})
 public class Showplace {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    String name;
+    private String name;
 
     @Temporal(TemporalType.TIME)
-    Date workStart;
+    private Date workStart;
     @Temporal(TemporalType.TIME)
-    Date workEnd;
+    private Date workEnd;
 
     @Column(precision = 3, scale = 2)
-    Double rating;
+    private Double rating;
 
-    String description;
+    private String description;
 
     @Lob
     @Column(name = "full_description", columnDefinition = "CLOB")
-    String fullDescription;
+    private String fullDescription;
 
+    @JsonIgnore
     @Lob
     @Column(name = "audioguide", columnDefinition = "BLOB")
-    byte[] audioguide;
+    private byte[] audioguide;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "city_id", nullable = false)
-    City city;
+    private City city;
 
-    @OneToMany(mappedBy = "showplace", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "showplace", fetch = FetchType.LAZY)
     private Set<Feedback> feedbacks;
 
 

@@ -2,6 +2,8 @@ package com.yourtravel.entity;
 
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -9,6 +11,8 @@ import java.util.Date;
 @Entity
 @Table(name = "TRAVEL_DAY")
 @Data
+@ToString(exclude = {"travelPlan"})
+@EqualsAndHashCode(exclude = {"travelPlan"})
 public class TravelDay {
 
     @Id
@@ -17,9 +21,9 @@ public class TravelDay {
 
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
-    Date date;
+    private Date date;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "travel_plan_id", nullable = false)
-    TravelPlan travelPlan;
+    private TravelPlan travelPlan;
 }

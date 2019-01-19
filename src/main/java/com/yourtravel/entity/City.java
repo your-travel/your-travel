@@ -2,6 +2,8 @@ package com.yourtravel.entity;
 
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -9,16 +11,19 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(name = "CITY")
+@ToString(exclude = {"country"})
+@EqualsAndHashCode(exclude = {"country"})
 public class City {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    String name;
+    private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id", nullable = false)
-    Country country;
+    private Country country;
+
 
 }

@@ -48,10 +48,10 @@
             <column name="second_name" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="enable" type="boolean">
+            <column name="enable" type="boolean" defaultValueBoolean="true">
                 <constraints nullable="false"/>
             </column>
-            <column name="warn" type="number(2)" value="0">
+            <column name="warn" type="number(2)" defaultValueNumeric="0">
                 <constraints nullable="false"/>
             </column>
             <column name="avatar" type="blob"/>
@@ -86,8 +86,6 @@
             </column>
         </createTable>
     </changeSet>
-
-    <!--TODO: table role + table user_role-->
 
     <changeSet id="changelog-0.0.1-5" author="pronin-av">
         <createTable tableName="role" remarks="Справочник ролей">
@@ -193,7 +191,7 @@
             <column name="mark" type="number(2)">
                 <constraints nullable="false"/>
             </column>
-            <column name="valid" type="boolean" value="1">
+            <column name="valid" type="boolean" defaultValueBoolean="1">
                 <constraints nullable="false"/>
             </column>
             <column name="showplace_id" type="number(19)">
@@ -203,16 +201,6 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-    </changeSet>
-
-    <changeSet id="test-1" author="aa">
-        <insert tableName="country">
-            <column name="name" value="Россия"/>
-        </insert>
-        <insert tableName="city">
-            <column name="name" value="Воронеж"/>
-            <column name="country_id" value="1"/>
-        </insert>
     </changeSet>
 
 </databaseChangeLog>
