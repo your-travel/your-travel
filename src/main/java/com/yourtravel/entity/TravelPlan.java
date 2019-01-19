@@ -1,38 +1,47 @@
 package com.yourtravel.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "TRAVEL_PLAN")
+@Data
+@ToString(exclude = {"city", "user"})
+@EqualsAndHashCode(exclude = {"city", "user"})
 public class TravelPlan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @Column(nullable = false)
-    String name;
+    private String name;
 
     @Column(nullable = false)
-    Integer adultCount;
+    private Integer adultCount;
 
-    Integer childCount;
+    private Integer childCount;
 
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
-    Date startDate;
+    private Date startDate;
 
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
-    Date endDate;
+    private Date endDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "city_id", nullable = false)
-    City city;
+    private City city;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    User user;
+    private User user;
 }

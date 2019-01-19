@@ -1,6 +1,8 @@
 package com.yourtravel.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -8,6 +10,8 @@ import java.util.Date;
 @Entity
 @Data
 @Table(name = "FEEDBACK")
+@ToString(exclude = {"showplace", "user"})
+@EqualsAndHashCode(exclude = {"showplace", "user"})
 public class Feedback {
 
     @Id
@@ -19,17 +23,17 @@ public class Feedback {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
-    Integer mark;
+    private Integer mark;
 
-    Boolean valid;
+    private Boolean valid;
 
-    @ManyToOne(targetEntity = Showplace.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Showplace.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "showplace_id", nullable = false)
-    Showplace showplace;
+    private Showplace showplace;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
-    User user;
+    private User user;
 
 
 }

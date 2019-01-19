@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="test-1" author="aa">
+        <insert tableName="user">
+            <column name="id" valueNumeric="1"/>
+            <column name="login" value="user"/>
+            <column name="password" value="123"/>
+            <column name="first_name" value="Андрей"/>
+            <column name="second_name" value="Пронин"/>
+        </insert>
+        <insert tableName="role">
+            <column name="id" value="1"/>
+            <column name="name" value="user"/>
+            <column name="alias" value="user"/>
+        </insert>
+        <insert tableName="user_role">
+            <column name="id" value="1"/>
+            <column name="user_id" value="1"/>
+            <column name="role_id" value="1"/>
+        </insert>
+        <insert tableName="country">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="Россия"/>
+        </insert>
+        <insert tableName="city">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="Воронеж"/>
+            <column name="country_id" value="1"/>
+        </insert>
+        <insert tableName="travel_plan">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="name"/>
+            <column name="adult_count" valueNumeric="1"/>
+            <column name="child_count" valueNumeric="0"/>
+            <column name="start_date" valueDate="2010-11-11"/>
+            <column name="end_date" valueDate="2010-11-11"/>
+            <column name="city_id" valueNumeric="1"/>
+            <column name="user_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="travel_day">
+            <column name="id" valueNumeric="1"/>
+            <column name="date" valueDate="2010-11-11"/>
+            <column name="travel_plan_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="showplace">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="Площадь Ленина"/>
+            <column name="work_start" valueDate="00:00:00"/>
+            <column name="work_end" valueDate="00:00:00"/>
+            <column name="rating" valueNumeric="0.00"/>
+            <column name="description" value="kek"/>
+            <column name="city_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="event">
+            <column name="id" valueNumeric="1"/>
+            <column name="date" valueDate="2010-11-11"/>
+            <column name="showplace_id" valueNumeric="1"/>
+            <column name="travel_day_id" valueNumeric="1"/>
+            <column name="event_type" value="SHOWPLACE"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

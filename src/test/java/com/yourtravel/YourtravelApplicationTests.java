@@ -12,6 +12,5 @@ public class YourtravelApplicationTests {
     @Test
     public void contextLoads() {
     }
-
 }
 
